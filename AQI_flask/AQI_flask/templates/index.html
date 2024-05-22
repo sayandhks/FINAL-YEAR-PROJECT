@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AQI (PM2.5) Forecasting</title>
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        body {
+            padding: 20px;
+        }
+        .plot {
+            margin-top: 20px;
+        }
+        .input-group-prepend .fa-calendar-alt {
+            font-size: 20px;
+            margin: 10px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
+        .card-header .subtitle {
+            font-size: 1.25rem;
+            color: #ddd; /* Light grey text for subtitle */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h1>AQI (PM2.5) Forecasting</h1>
+                        <p class="subtitle">Select Date Range for Forecast</p>
+                    </div>
+                    <div class="card-body">
+                        <form action="/" method="post" class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" id="date_start" name="date_start" class="form-control" placeholder="Start Date">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" id="date_end" name="date_end" class="form-control" placeholder="End Date">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Show Graph</button>
+                        </form>
+                    </div>
+                    {% if plot_url %}
+                    <div class="card-footer">
+                        <div class="plot">
+                            <img src="data:image/png;base64,{{ plot_url }}" alt="Forecast Graph" class="img-fluid">
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        flatpickr("#date_start", {
+            enableTime: false, 
+            dateFormat: "Y-m-d",
+            defaultDate: "2023-04-01",
+            minDate: "2023-04-01"
+        });
+        flatpickr("#date_end", {
+            enableTime: false, 
+            dateFormat: "Y-m-d",
+            minDate: "2023-04-01"
+        });
+    </script>
+</body>
+</html>
